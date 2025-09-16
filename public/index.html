@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Pilot - Your AI Co-pilot for the Command Line</title>
+    <meta name="description" content="An intelligent CLI tool that uses generative AI to create git commit messages and translate natural language into shell commands.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="container">
+    <div class="content-wrapper"> 
+        <div class="pattern-left"></div>
+        <div class="pattern-right"></div>
+        
+        <div class="main-content-area">
+            <header class="main-header">
+                <nav>
+                    <a href="#" class="logo">Git Pilot</a>
+                    <div id="nav-right">
+                        <a href="https://github.com/abhaydesu/git-pilot-cli" target="_blank" class="nav-link">GitHub </a>
+                        <a href="https://www.npmjs.com/package/@abhaydesu/git-pilot" target="_blank" class="nav-link">npm </a>
+                    </div>
+                </nav>
+            </header>
+
+            <main>
+                <section class="hero-section">
+                    <h1 class="hero-headline">Your AI git co-pilot for<br /> the command line.</h1>
+                    <p class="hero-subheadline">
+                        Generate git commit messages and translate natural language into shell commands, right in your terminal.
+                    </p>
+                    <div class="cta-container">
+                        <div class="code-block" id="install-command">
+                            <span class="dollar-sign">$</span>
+                            <code id="command-text">npm install @abhaydesu/git-pilot</code>
+                            <button id="copy-button" title="Copy to clipboard">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="demo-section">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="terminal-buttons">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <div class="terminal-title">bash</div>
+                        </div>
+                        <div class="terminal-body">
+                            <p><span class="prompt">$</span> git pilot commit</p>
+                            <p class="output">feat: implement user authentication endpoint </p>
+                            <br>
+                            <p><span class="prompt">$</span> git pilot shell "find all js files in src and delete them"</p>
+                            <p class="output">find src -name "*.js" -type f -delete</p>
+                            <p><span class="prompt">_</span></p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="features-section">
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                            </div>
+                            <h3>Natural Language Shell</h3>
+                            <p>Translate plain English descriptions into powerful shell commands without leaving your terminal.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
+                            </div>
+                            <h3>AI-Powered Commits</h3>
+                            <p>Automatically generate clear, conventional commit messages based on your staged changes.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20v-6m0 0V4m0 10h4m-4 0H6"></path><path d="M20 20v-2m0 0V4m0 14h-4m4 0h-2"></path><path d="M4 20v-4m0 0V4m0 12h4m-4 0H2"></path></svg>
+                            </div>
+                            <h3>Seamless Workflow</h3>
+                            <p>Integrates directly into your existing command-line workflow. No configuration needed to get started.</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-links">
+            <a href="https://github.com/abhaydesu/git-pilot-cli" target="_blank">CLI Repo</a>
+            <span>•</span>
+            <a href="https://github.com/abhaydesu/git-pilot-api" target="_blank">API Repo</a>
+            <span>•</span>
+            <a href="https://www.npmjs.com/package/@abhaydesu/git-pilot" target="_blank">npm Package</a>
+        </div>
+        <p class="copyright">Made by Abhay Singh.</p>
+    </footer>
+</div> 
+
+<script src="script.js"></script>
+</body>
+</html>

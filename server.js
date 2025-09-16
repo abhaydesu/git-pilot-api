@@ -13,9 +13,8 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send("Git-pilot api is alive!`");
-});
+app.use(express.static('public'));
+
 
 app.post('/api/commit-message',  async (req, res) => {
     try {
