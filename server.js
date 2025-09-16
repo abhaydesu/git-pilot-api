@@ -50,6 +50,32 @@ app.post('/api/commit-message',  async (req, res) => {
 
 });
 
+app.post('/api/git-command', async (req, res) => {
+    try {
+        const { request } = req.body;
+
+        const prompt = `You are an expert in Git. Translate the following user request into a single, executable, and safe Git command.
+        - The user's request is: "${request}".
+        - Output ONLY the Git command itself.
+        - Do not provide any explanation, comments, or markdown formatting like \`\`\`.
+        - Prioritize safe, common commands. Avoid destructive commands like 'git reset --hard' unless the user's intent is explicitly and unmistakably clear.
+        - If the request is ambiguous or could be destructive (e.g., "delete all my work"), respond with the text: "Error: Ambiguous or potentially destructive command."`
+
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const gitCommand = response.text().trim();
+        
+        res.json({ command: gitCommand });
+    
+    } catch (error) {
+        console.error('Error in /api/git-command: ', error);
+        res.status(500).json({
+            error: "Failed to generate Git command."
+        })
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on https://localhost:${PORT}`);
 });
