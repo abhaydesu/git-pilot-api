@@ -18,8 +18,6 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "public")));
-
 app.post("/api/commit-message", async (req, res) => {
   try {
     const { intent, diff } = req.body;
@@ -74,6 +72,10 @@ app.post("/api/git-command", async (req, res) => {
       error: "Failed to generate Git command.",
     });
   }
+});
+
+app.get('/', (req, res) => {
+  res.redirect(301, 'https://gitpilotcli.vercel.app');
 });
 
 app.listen(PORT, () => {
