@@ -1,3 +1,7 @@
+<div align="center" display="inline">
+  <img width="30" height="30" alt="logo" src="./public/logo-pilot.png" />
+</div>
+
 # Git Pilot API 
 
 This is the backend API server that powers the <a href="https://www.npmjs.com/package/@abhaydesu/git-pilot">`git-pilot`</a> CLI tool. It handles the secure communication with AI models to generate Git commands and commit messages.
