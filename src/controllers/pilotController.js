@@ -2,8 +2,6 @@ import genAI from '../services/genai.js';
 import { VALID_GIT_COMMANDS } from '../constants/validCommands.js';
 
 export async function pilotCommit(req, res) {
-    console.log('Is Google API Key available?:', !!process.env.GOOGLE_API_KEY);
-
 try {
     const { intent, diff } = req.body;
 
@@ -34,11 +32,7 @@ try {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);
     const response = await result.response;
-    // const commitMessage = response.text().trim();
-
-     console.log("RAW AI RESPONSE:", JSON.stringify(response, null, 2));
     const commitMessage = response.text().trim();
-    console.log("EXTRACTED COMMIT MESSAGE:", commitMessage);
 
 
     res.json({ message: commitMessage });
