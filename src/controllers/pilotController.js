@@ -29,7 +29,7 @@ try {
     `;
 
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const commitMessage = response.text().trim();
@@ -63,7 +63,7 @@ try {
       "${request}"`;
 
     const getAiResponse = async (prompt) => {
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
       const result = await model.generateContent(prompt);
       const response = await result.response;
       return response.text().trim();
@@ -143,7 +143,7 @@ export async function pilotBranch(req, res) {
       For example, if the user's description is "fix a bug in the login page", you should output "fix/login-page-bug".
     `;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const branchName = response.text().trim();

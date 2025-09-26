@@ -1,71 +1,104 @@
 <div align="center" display="inline">
-  <img width="40" height="40" alt="logo" src="./public/logo-pilot.png" />
+  <img width="30" height="30" alt="logo" src="./public/logo-dark-new.png" />
 </div>
 
-# Git Pilot 
+# Git Pilot API
 
-[![NPM Version](https://img.shields.io/npm/v/@abhaydesu/git-pilot)](https://www.npmjs.com/package/@abhaydesu/git-pilot)
+This is the backend API server that powers the <a href="https://www.npmjs.com/package/@abhaydesu/git-pilot">`git-pilot`</a> CLI tool. It handles the secure communication with AI models to generate Git commands, commit messages, undo actions, and branch names.
 
-An AI-powered assistant that lives in your command line to streamline your Git workflow. Never write a commit message or look up a command again.
+## ◼️ Purpose
 
----
+The primary role of this API is to act as a secure intermediary between the <a href="https://github.com/abhaydesu/git-pilot-cli">`git-pilot-cli` </a> and the AI service (Google Gemini). This architecture ensures that the AI API keys are never exposed on a user's local machine.
 
-## The Problem
-Remembering complex commands like interactive rebase can be a pain. Writing well-formatted commit messages is a chore. Git is powerful, but its interface can sometimes get in the way of a fast workflow.
+## ◼️ Technology Stack
 
-**Git Pilot** solves this by acting as your intelligent copilot, translating your natural language intent into the exact commands and messages you need.
+* **Runtime:** Node.js
+* **Framework:** Express.js
+* **AI Service:** Google Gemini API
+* **Deployment:** Vercel
 
-## Features
-* **AI-Powered Commit Messages:** Analyzes your staged changes (`git diff`) and generates a perfect commit message following the Conventional Commits specification. Just run `git pilot commit <your_intent>`
-* **Natural Language to Git Command:** Translate plain English requests like "squash the last 3 commits" into the precise Git command. One simple `git pilot run <your_request>`
-* **Magic Undo:** Made a mistake? `git pilot undo` analyzes your recent history and suggests the exact command to reverse your last action.
-* **Intelligent Branching:** Describe your goal, and `git pilot branch` will create a clean, conventional branch name for you.
-* **Interactive & Safe:** Always asks for your confirmation before executing any command. You can also **edit** any AI suggestion to get it just right.
+## ◼️ API Endpoints
 
-## Installation
-Make sure you have Node.js (v18+) and Git installed. Then, run the following command to install Git Pilot globally:
+The API exposes the following endpoints:
 
-```bash
-npm install -g @abhaydesu/git-pilot
-```
+### 1. Generate Commit Message
 
-### ◾ Usage
+* **Route:** `POST /api/pilot-commit`
+* **Description:** Analyzes a Git diff and a user's intent to generate a conventional commit message.
+* **Request Body (JSON):**
 
-#### *Generating a Commit Message*
-Stage your files (git add .), then run the commit command with your intent. You can accept, abort, or edit the AI's suggestion.
+  ```json
+  {
+    "intent": "string",
+    "diff": "string"
+  }
+  ```
+* **Success Response (200 - JSON):**
 
-```Bash
+  ```json
+  {
+    "message": "string"
+  }
+  ```
 
-git pilot commit "add new user profile page"
-```
+### 2. Generate Git Command
 
-#### *Running a Git Command*
-Run the run command with the task you want to perform. The tool will suggest a command and ask for confirmation.
+* **Route:** `POST /api/pilot-run`
+* **Description:** Translates a user's natural language request into an executable, safe Git command.
+* **Request Body (JSON):**
 
-```Bash
+  ```json
+  {
+    "request": "string"
+  }
+  ```
+* **Success Response (200 - JSON):**
 
-git pilot run "cherry-pick the last commit from the main branch" 
-```
+  ```json
+  {
+    "command": "string"
+  }
+  ```
 
-#### *Creating a New Branch*
-Describe the purpose of your new branch, and let the AI generate a conventional name.
+### 3. Undo Last Action
 
-```Bash
+* **Route:** `POST /api/pilot-undo`
+* **Description:** Suggests a safe Git command to undo the most recent significant action (merge, rebase, commit).
+* **Request Body (JSON):**
 
-git pilot branch "create a new feature for the auth system"
-```
+  ```json
+  {
+    "reflog": "string"
+  }
+  ```
+* **Success Response (200 - JSON):**
 
-#### *Undoing a Mistake*
+  ```json
+  {
+    "command": "string",
+    "explanation": "string"
+  }
+  ```
 
-If you've made a mistake (like a bad commit or merge), this command will analyze your history and suggest the safest way to undo it.
+### 4. Generate Branch Name
 
-```Bash
+* **Route:** `POST /api/pilot-branch`
+* **Description:** Converts a natural language description into a conventional, kebab-case Git branch name.
+* **Request Body (JSON):**
 
-git pilot undo 
-```
+  ```json
+  {
+    "description": "string"
+  }
+  ```
+* **Success Response (200 - JSON):**
 
-### ◾ How It Works
-Git Pilot is a CLI tool that communicates with a secure backend API. This API uses Google's Gemini models to understand your intent and analyze code, keeping your API keys safe and off your local machine.
+  ```json
+  {
+    "branchName": "string"
+  }
+  ```
 
-### ◾ License
-This project is licensed under the MIT License.
+### ◾ Deployment
+
+This API is designed for and deployed on Vercel.
