@@ -1,5 +1,5 @@
 <div align="center" display="inline">
-  <img width="30" height="30" alt="logo" src="./public/logo-dark-new.png" />
+  <img width="30" height="30" alt="logo" src="./public/logo.png" />
 </div>
 
 # Git Pilot API
