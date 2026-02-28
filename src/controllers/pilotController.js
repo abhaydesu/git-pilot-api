@@ -5,7 +5,8 @@ export async function pilotCommit(req, res) {
   try {
     const { intent, diff } = req.body;
 
-    const commitTypes = "feat, fix, docs, style, refactor, perf, test, chore, ci, revert, assets";
+    const commitTypes =
+      "feat, fix, docs, style, refactor, perf, test, chore, ci, revert, assets";
 
     const prompt = `
     You are an expert programmer writing a Git commit message that follows the Conventional Commits specification.
@@ -31,7 +32,7 @@ export async function pilotCommit(req, res) {
     \`\`\`
     `;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const commitMessage = response.text().trim();
@@ -63,7 +64,9 @@ export async function pilotRun(req, res) {
       "${request}"`;
 
     const getAiResponse = async (prompt) => {
-      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+      const model = genAI.getGenerativeModel({
+        model: "gemini-2.5-flash-lite",
+      });
       const result = await model.generateContent(prompt);
       const response = await result.response;
       return response.text().trim();
@@ -141,7 +144,7 @@ export async function pilotBranch(req, res) {
       For example, if the user's description is "fix a bug in the login page", you should output "fix/login-page-bug".
     `;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const branchName = response.text().trim();
