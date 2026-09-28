@@ -5,6 +5,8 @@ export const config = {
   geminiModel: process.env.GEMINI_MODEL || "gemini-2.5-flash-lite",
   port: Number(process.env.PORT) || 3000,
   bodyLimit: "1mb",
+  rateLimitPerMinute: Number(process.env.RATE_LIMIT_PER_MINUTE) || 30,
+  geminiTimeoutMs: 25_000,
 };
 
 export function assertConfig() {

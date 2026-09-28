@@ -30,6 +30,7 @@ npm run dev            # http://localhost:3000, restarts on change
 | `GEMINI_API_KEY` | yes | | Google Gemini API key |
 | `GEMINI_MODEL` | no | `gemini-2.5-flash-lite` | Model used for all endpoints |
 | `PORT` | no | `3000` | Port for `npm start` / `npm run dev` |
+| `RATE_LIMIT_PER_MINUTE` | no | `30` | Max requests per client IP per minute on `/api/*` |
 
 Other scripts: `npm test` (Gemini is mocked, no key needed), `npm run lint`, `npm run format`.
 Point the CLI at your local server with `GIT_PILOT_API_URL=http://localhost:3000 git pilot run "show status"`.
@@ -38,6 +39,8 @@ Point the CLI at your local server with `GIT_PILOT_API_URL=http://localhost:3000
 
 * Request bodies are limited to 1 MB; `diff` to 800,000 characters, `intent` to 1,000, `request` to 1,000, `reflog` to 20,000 and `description` to 500.
 * Invalid input returns `400` (`413` for oversized bodies) as `{ "error": "..." }`. Unexpected failures return `500` with a generic `{ "error": "Internal server error." }`.
+* Requests over the rate limit get `429` with `{ "error": "Too many requests, ..." }`. The counter is in memory per serverless instance, so treat it as a brake on casual abuse; for stronger protection use Vercel firewall rules or a shared store.
+* CORS is disabled (the CLI is not a browser). Add an explicit origin allowlist if a web client ever needs this API.
 * `pilot-run` only returns commands of the form `git <known-subcommand> ...` with no shell operators (`;`, `&&`, `|`, `$(...)`). Anything else comes back as `{ "command": "Error: ..." }`.
 
 ## ◼️ API Endpoints

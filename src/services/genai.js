@@ -7,7 +7,10 @@ let client;
 export async function generate(prompt) {
   assertConfig();
   client ??= new GoogleGenerativeAI(config.geminiApiKey);
-  const model = client.getGenerativeModel({ model: config.geminiModel });
+  const model = client.getGenerativeModel(
+    { model: config.geminiModel },
+    { timeout: config.geminiTimeoutMs }
+  );
   const result = await model.generateContent(prompt);
   return result.response.text().trim();
 }

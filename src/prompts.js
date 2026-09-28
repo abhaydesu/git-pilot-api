@@ -43,7 +43,8 @@ ${wrap("request", request)}
 `;
 
 export const runRetryPrompt = ({ request, previous, verb }) => `
-You previously suggested "${previous}", but "${verb}" is not a valid Git command.
+You previously suggested the command below, but "${verb}" is not a valid Git command.
+${wrap("previous", previous)}
 Translate the user's request again using only real Git commands from the official documentation.
 Output ONLY the Git command.
 
