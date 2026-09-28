@@ -1,8 +1,13 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import "dotenv/config";
+import { config, assertConfig } from "../config.js";
 
+let client;
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-
-export default genAI;
+/** Sends a prompt to Gemini and returns the trimmed text of the reply. */
+export async function generate(prompt) {
+  assertConfig();
+  client ??= new GoogleGenerativeAI(config.geminiApiKey);
+  const model = client.getGenerativeModel({ model: config.geminiModel });
+  const result = await model.generateContent(prompt);
+  return result.response.text().trim();
+}

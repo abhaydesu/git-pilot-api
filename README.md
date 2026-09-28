@@ -17,6 +17,29 @@ The primary role of this API is to act as a secure intermediary between the <a h
 * **AI Service:** Google Gemini API
 * **Deployment:** Vercel
 
+## ◼️ Local Development
+
+```bash
+npm install
+cp .env.example .env   # then set GEMINI_API_KEY
+npm run dev            # http://localhost:3000, restarts on change
+```
+
+| Variable | Required | Default | Description |
+| --- | --- | --- | --- |
+| `GEMINI_API_KEY` | yes | | Google Gemini API key |
+| `GEMINI_MODEL` | no | `gemini-2.5-flash-lite` | Model used for all endpoints |
+| `PORT` | no | `3000` | Port for `npm start` / `npm run dev` |
+
+Other scripts: `npm test` (Gemini is mocked, no key needed), `npm run lint`, `npm run format`.
+Point the CLI at your local server with `GIT_PILOT_API_URL=http://localhost:3000 git pilot run "show status"`.
+
+## ◼️ Errors and Limits
+
+* Request bodies are limited to 1 MB; `diff` to 800,000 characters, `intent` to 1,000, `request` to 1,000, `reflog` to 20,000 and `description` to 500.
+* Invalid input returns `400` (`413` for oversized bodies) as `{ "error": "..." }`. Unexpected failures return `500` with a generic `{ "error": "Internal server error." }`.
+* `pilot-run` only returns commands of the form `git <known-subcommand> ...` with no shell operators (`;`, `&&`, `|`, `$(...)`). Anything else comes back as `{ "command": "Error: ..." }`.
+
 ## ◼️ API Endpoints
 
 The API exposes the following endpoints:
